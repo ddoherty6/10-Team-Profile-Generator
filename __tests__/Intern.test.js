@@ -1,7 +1,7 @@
 const Intern = require('../lib/Intern');
 
 test('Intern class has all required properties', () => {
-    const intern = new Intern('Jim Halpert', "jim.halpert@office.net");
+    const intern = new Intern('Jim Halpert', "jim.halpert@office.net", 1, "Scranton University");
 
     // testing static properties
     expect(intern.name).toEqual(expect.any(String));
@@ -11,8 +11,8 @@ test('Intern class has all required properties', () => {
 
     //testing methods
     expect(intern.getName()).toEqual(expect.stringContaining(intern.name));
-    expect(intern.getId()).toEqual(expect.stringContaining(intern.id.toString()));
+    expect(intern.getId()).toBe(intern.id);
     expect(intern.getEmail()).toEqual(expect.stringContaining(intern.email));
-    expect(intern.getRole()).toEqual(expect.stringContaining(intern.role));
+    expect(intern.getRole()).toEqual(expect.stringContaining("Intern"));
     expect(intern.getSchool()).toEqual(expect.stringContaining(intern.school));
 });
