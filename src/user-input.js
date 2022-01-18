@@ -9,7 +9,7 @@ const managerQuestions = [
             if (input) {
                 return true;
             } else {
-                console.log("Please enter your name:");
+                console.log("Please enter Team  Manager's name:");
                 return false;
             }
         }
@@ -42,12 +42,12 @@ const managerQuestions = [
     }
 ];
 
-const whichEployee = [
+const whichEmployee = [
     {
         type: 'list',
-        name: 'employee-type',
-        message: 'What kind of employee would you like to enter?',
-        choices: ['Engineer', 'Intern', 'No more team members to enter']
+        name: 'employeeType',
+        message: 'Add another employee? What kind of employee would you like to enter?',
+        choices: ['Engineer', 'Intern', 'No more employees to enter']
     }
 ];
 
@@ -55,7 +55,7 @@ const engineerQuestions = [
     {
         type: 'input',
         name: 'name',
-        message: "Enter the Engineer's's name:",
+        message: "Enter the Engineer's name:",
         validate: input => {
             if (input) {
                 return true;
@@ -68,7 +68,7 @@ const engineerQuestions = [
     {
         type: 'input',
         name: 'email',
-        message: "What is the Team Manager's email",
+        message: "What is the Engineer's email",
         validate: input => {
             if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) {
                 return true;
@@ -80,103 +80,94 @@ const engineerQuestions = [
     },
     {
         type: 'input',
-        name: 'title',
-        message: 'Please enter project title:',
-        validate: titleInput => {
-            if (titleInput) {
+        name: 'github',
+        message: "Please enter this Engineer's GitHub username:",
+        validate: input => {
+            if (input) {
                 return true;
             } else {
-                console.log("Please enter project title:");
-                return false;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'description',
-        message: 'Please enter project description:',
-        validate: descriptionInput => {
-            if (descriptionInput) {
-                return true;
-            } else {
-                console.log("Please enter project description:");
-                return false;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'installation',
-        message: 'Please provide installation instructions for your application:',
-        validate: installationInput => {
-            if (installationInput) {
-                return true;
-            } else {
-                console.log("Please provide installation instructions for your application:");
-                return false;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'usage',
-        message: 'Please explain how to use your application:',
-        validate: usageInput => {
-            if (usageInput) {
-                return true;
-            } else {
-                console.log("Please explain how to use your application:");
-                return false;
-            }
-        }
-    },
-    {
-        type: 'checkbox',
-        name: 'license',
-        message: 'Which license applies to this project? Please check only one box:',
-        choices: ['Apache License 2.0', 'Boost', 'BSD 2-Clause', 'BSD 3-Clause', 'CC0', 'EPL', 'GPL v3', 'GPL v2', 'MIT', 'Mozilla Public License 2.0', 'ISC'],
-        validate: licenseInput => {
-            if (licenseInput.length <= 1) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'contributing',
-        message: 'Please provide guidelines for how others can contribute to this project:',
-        validate: contributingInput => {
-            if (contributingInput) {
-                return true;
-            } else {
-                console.log("Please provide guidelines for how others can contribute to this project:");
-                return false;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'tests',
-        message: 'Please provide instructions on how to test your application:',
-        validate: testsInput => {
-            if (testsInput) {
-                return true;
-            } else {
-                console.log("Please instructions on how to test your application:");
+                console.log("Please enter GitHub username:");
                 return false;
             }
         }
     }
 ];
 
-const askQuestions = questions => {
-    inquirer.prompt(questions)
-    .then;
+const internQuestions = [
+    {
+        type: 'input',
+        name: 'name',
+        message: "Enter the Intern's name:",
+        validate: input => {
+            if (input) {
+                return true;
+            } else {
+                console.log("Please enter employee's name");
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: "What is the Intern's email",
+        validate: input => {
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) { // regular expression to validate email
+                return true;
+            } else {
+                console.log("Please enter a valid email address");
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'school',
+        message: "Please enter this Intern's school:",
+        validate: input => {
+            if (input) {
+                return true;
+            } else {
+                console.log("Please enter school:");
+                return false;
+            }
+        }
+    }
+];
+
+const askManagerQuestions = () => {
+    return inquirer.prompt(managerQuestions); // ask questions about team manager
+}
+
+const askEmployeeQuestions = employeeDatabase => {
+    
+    return inquirer.prompt(whichEmployee) // determine which employee is next (or user stop entering)
+    .then(res => {
+        let { employeeType } = res;
+
+        if (employeeType === 'Engineer') { // if user chose engineer ...
+            return inquirer.prompt(engineerQuestions)
+            .then(engineerRes => {
+               
+                employeeDatabase.push(engineerRes);
+                
+                return askEmployeeQuestions(employeeDatabase);
+            });
+        } else if (employeeType === 'Intern') { // if user chose Intern ...
+            return inquirer.prompt(internQuestions)
+            .then(internRes => {
+                console.log(internRes);
+                employeeDatabase.push(internRes);
+                console.log(employeeDatabase);
+                return askEmployeeQuestions(employeeDatabase);
+            });
+        } else {
+            return employeeDatabase;
+        }
+    });
 }
 
 module.exports = {
-    questions,
-    askQuestions,
+    askManagerQuestions,
+    askEmployeeQuestions
 };
