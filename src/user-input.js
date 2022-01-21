@@ -1,4 +1,7 @@
 const inquirer = require('inquirer');
+const Manager = require('../lib/Manager');
+const Engineer = require('../lib/Engineer');
+const Intern = require('../lib/Intern');
 
 const managerQuestions = [
     {
@@ -136,7 +139,12 @@ const internQuestions = [
 ];
 
 const askManagerQuestions = () => {
-    return inquirer.prompt(managerQuestions); // ask questions about team manager
+    return inquirer.prompt(managerQuestions)
+    .then(managerAnswers => {
+        const manager = Array();
+        manager.push(new Manager(managerAnswers.name, managerAnswers.email, 0, managerAnswers.officeNumber));
+        return manager;
+    }); // ask questions about team manager
 }
 
 const askEmployeeQuestions = employeeDatabase => {
@@ -148,17 +156,15 @@ const askEmployeeQuestions = employeeDatabase => {
         if (employeeType === 'Engineer') { // if user chose engineer ...
             return inquirer.prompt(engineerQuestions)
             .then(engineerRes => {
-               
-                employeeDatabase.push(engineerRes);
-                
+                const newEngineer = new Engineer(engineerRes.name, engineerRes.email, employeeDatabase.length, engineerRes.github);
+                employeeDatabase.push(newEngineer);
                 return askEmployeeQuestions(employeeDatabase);
             });
         } else if (employeeType === 'Intern') { // if user chose Intern ...
             return inquirer.prompt(internQuestions)
             .then(internRes => {
-                console.log(internRes);
-                employeeDatabase.push(internRes);
-                console.log(employeeDatabase);
+                const newIntern = new Intern(internRes.name, internRes.email, employeeDatabase.length, internRes.school);
+                employeeDatabase.push(newIntern);
                 return askEmployeeQuestions(employeeDatabase);
             });
         } else {
