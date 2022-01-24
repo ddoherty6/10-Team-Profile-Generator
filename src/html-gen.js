@@ -4,13 +4,13 @@ function generateCard(employee) {
             <div class="col s12 m6">
                 <div class="card hoverable blue-grey darken-1">
                     <div class="card-content white-text">
-                        <h5>${employee.name}</h5>
+                        <h5>${employee.getName()}</h5>
                         <span class="card-title">Manager</span>
-                        <span>ID: ${employee.id}</span>
+                        <span>ID: ${employee.getId()}</span>
                     </div>
                     <div class="card-action">
                         <p class="amber-text text-darken-1">Office Number: ${employee.officeNumber}</p>
-                        <a href="mailto: ${employee.email}">Email</a>
+                        <a href="mailto: ${employee.getEmail()}">Email</a>
                     </div>
                 </div>
             </div>
@@ -20,13 +20,13 @@ function generateCard(employee) {
             <div class="col s12 m6">
                 <div class="card hoverable blue-grey darken-1">
                     <div class="card-content white-text">
-                    <h5>${employee.name}</h5>
+                    <h5>${employee.getName()}</h5>
                     <span class="card-title">Engineer</span>
-                        <p>ID: ${employee.id}</p>
+                        <p>ID: ${employee.getId()}</p>
                     </div>
                     <div class="card-action">
-                        <p><a href="https://github.com/${employee.github}">GitHub</a></p>
-                        <a href="mailto: ${employee.email}">Email</a>
+                        <p><a href="https://github.com/${employee.getGithub()}">GitHub</a></p>
+                        <a href="mailto: ${employee.getEmail()}">Email</a>
                     </div>
                 </div>
             </div>
@@ -36,14 +36,14 @@ function generateCard(employee) {
             <div class="col s12 m6">
                 <div class="card hoverable blue-grey darken-1">
                     <div class="card-content white-text">
-                    <h5>${employee.name}</h5>
-                    <span class="card-title">Intern</span>
-                        <span>ID: ${employee.id} </span>
+                    <h5>${employee.getName()}</h5>
+                    <span class="card-title">${employee.getRole()}</span>
+                        <span>ID: ${employee.getId()} </span>
                         
                     </div>
                     <div class="card-action">
-                        <p class="amber-text text-darken-1">School: ${employee.school}</p>
-                        <a href="mailto: ${employee.email}">Email</a>
+                        <p class="amber-text text-darken-1">School: ${employee.getSchool()}</p>
+                        <a href="mailto: ${employee.getEmail()}">Email</a>
                     </div>
                 </div>
             </div>
