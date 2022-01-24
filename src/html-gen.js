@@ -1,4 +1,4 @@
-function generateCard(employee) {
+function generateCard(employee) { // makes each employee card based on type of employee
     if (employee.hasOwnProperty("officeNumber")) { // if object is Manager
         return `
             <div class="col s12 m6">
@@ -25,7 +25,7 @@ function generateCard(employee) {
                         <p>ID: ${employee.getId()}</p>
                     </div>
                     <div class="card-action">
-                        <p><a href="https://github.com/${employee.getGithub()}">GitHub: ${employee.getGithub()}</a></p>
+                        <p><a target="_blank" href="https://github.com/${employee.getGithub()}">GitHub: ${employee.getGithub()}</a></p>
                         <a href="mailto: ${employee.getEmail()}">Email: ${employee.getEmail()}</a>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ function generateCard(employee) {
     }
 }
 
-function createCardsArray(employees) {
+function createCardsArray(employees) { //pushes each card into an array so that .join() can be used in generateHTML() below
     let cards = Array();
     for (let i = 0; i < employees.length; i++) {
         cards.push(generateCard(employees[i]));
@@ -60,7 +60,7 @@ function createCardsArray(employees) {
     return cards;
 }
 
-function generateHTML(cards) {
+function generateHTML(cards) { // compiles all HTML together and made ready for final file 
     return `
     <!DOCTYPE html>
         <html lang="en">
