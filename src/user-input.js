@@ -138,16 +138,16 @@ const internQuestions = [
     }
 ];
 
-const askManagerQuestions = () => {
+const askManagerQuestions = () => { // ask questions about team manager
     return inquirer.prompt(managerQuestions)
     .then(managerAnswers => {
         const manager = Array();
         manager.push(new Manager(managerAnswers.name, managerAnswers.email, 0, managerAnswers.officeNumber));
         return manager;
-    }); // ask questions about team manager
+    }); 
 }
 
-const askEmployeeQuestions = employeeDatabase => {
+const askEmployeeQuestions = employeeDatabase => { // ask questions about each employee
     
     return inquirer.prompt(whichEmployee) // determine which employee is next (or user stop entering)
     .then(res => {
@@ -167,7 +167,7 @@ const askEmployeeQuestions = employeeDatabase => {
                 employeeDatabase.push(newIntern);
                 return askEmployeeQuestions(employeeDatabase);
             });
-        } else {
+        } else { // if user chose to stop
             return employeeDatabase;
         }
     });
