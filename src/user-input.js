@@ -73,7 +73,7 @@ const engineerQuestions = [
         name: 'email',
         message: "What is the Engineer's email",
         validate: input => {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) {
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) { // regular expression to test for valid email
                 return true;
             } else {
                 console.log("Please enter a valid email address");

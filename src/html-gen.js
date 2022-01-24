@@ -25,7 +25,7 @@ function generateCard(employee) {
                         <p>ID: ${employee.getId()}</p>
                     </div>
                     <div class="card-action">
-                        <p><a href="https://github.com/${employee.getGithub()}">GitHub: ${employee.getGithub()}</a></p>
+                        <p><a target="_blank" href="https://github.com/${employee.getGithub()}">GitHub: ${employee.getGithub()}</a></p>
                         <a href="mailto: ${employee.getEmail()}">Email: ${employee.getEmail()}</a>
                     </div>
                 </div>
