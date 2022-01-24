@@ -1,5 +1,6 @@
 const input = require('./src/user-input');
 const genHTML = require('./src/html-gen');
+const fs = require('fs');
 const createFile = require('./src/create-file');
 
 let employees = Array(); // stores employee objects
@@ -36,34 +37,26 @@ const mockData = [
       school: 'Liverpool FC'
     }
   ];
-  
-
-const createData = function(employees) {
-    
-}
 
 //runs the app
 function init() {
-    // input.askManagerQuestions()
-    // .then(managerObj => {
-    //     input.askEmployeeQuestions(managerObj) // pass manager obj into next set of questions
-    //     .then(allEmployeeObjs => employees = allEmployeeObjs)
-    // })
-    // .catch(error => console.log(error));
-
-    employees = mockData;
-
-    // console.log(mockData);
-
-    console.log(mockData[2].name);
-
-    createData(employees);
-
-
-    // .then(answers => createData(answers)) //creates array of objects from input
-    // .then(data => genHTML(data)) // creates HTML from array of employee objects
-    // .then(html => createFile(html)) // writes HTML file
-    // .then(resolve => console.log(resolve.message))
+    input.askManagerQuestions()
+    .then(managerObj => {
+        input.askEmployeeQuestions(managerObj) // pass manager obj into next set of questions
+        .then(allEmployeeObjs => genHTML.createCardsArray(allEmployeeObjs)) // pass array of employee objects into function that generates html cards
+        .then(cards => genHTML.generateHTML(cards)) // pass cards html into full page html
+        .then(html => { // write full-page html into file dist/index.html
+          fs.writeFile('./dist/index.html', html, (err) => {
+            if (err) {
+              console.log(err);
+            }
+            else {
+              console.log("New HTML file written at dist/index.html")
+            }
+          })
+        })
+    })
+    .catch(error => console.log(error));
 }
 
 

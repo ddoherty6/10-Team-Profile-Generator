@@ -1,41 +1,63 @@
 function generateCard(employee) {
-    
-    let startOfCard = `<div class ="card'>
-    
-        <h3>${employee.name}</h3>
-        <h4>$(employee.)
-    
-    
-    `;
-    let endOfCard = `</div>`;
-    
-    if (employee.hasOwnProperty(officeNumber)) { // if object is Manager
+    if (employee.hasOwnProperty("officeNumber")) { // if object is Manager
         return `
-        <div class ="card'>
-            <div class="card-header">
-                <h3>${employee.name}</h3>
-                <h4>Manger</h4>
-            </header>
-            <div class="card-body">
-            
+            <div class="col s12 m6">
+                <div class="card hoverable blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <h5>${employee.name}</h5>
+                        <span class="card-title">Manager</span>
+                        <span>ID: ${employee.id}</span>
+                    </div>
+                    <div class="card-action">
+                        <p class="amber-text text-darken-1">Office Number: ${employee.officeNumber}</p>
+                        <a href="mailto: ${employee.email}">Email</a>
+                    </div>
+                </div>
             </div>
-        </div>
         `;
-    } else if (employee.hasOwnProperty(github)) { // if object is Engineer
+    } else if (employee.hasOwnProperty("github")) { // if object is Engineer
         return `
-        
+            <div class="col s12 m6">
+                <div class="card hoverable blue-grey darken-1">
+                    <div class="card-content white-text">
+                    <h5>${employee.name}</h5>
+                    <span class="card-title">Engineer</span>
+                        <p>ID: ${employee.id}</p>
+                    </div>
+                    <div class="card-action">
+                        <p><a href="https://github.com/${employee.github}">GitHub</a></p>
+                        <a href="mailto: ${employee.email}">Email</a>
+                    </div>
+                </div>
+            </div>
         `;
     } else { // if object is Intern
         return `
-        
+            <div class="col s12 m6">
+                <div class="card hoverable blue-grey darken-1">
+                    <div class="card-content white-text">
+                    <h5>${employee.name}</h5>
+                    <span class="card-title">Intern</span>
+                        <span>ID: ${employee.id} </span>
+                        
+                    </div>
+                    <div class="card-action">
+                        <p class="amber-text text-darken-1">School: ${employee.school}</p>
+                        <a href="mailto: ${employee.email}">Email</a>
+                    </div>
+                </div>
+            </div>
         `;
     }
+}
 
-    
-    return `
-        <div class ="card"> </div>
-    `;
+function createCardsArray(employees) {
+    let cards = Array();
+    for (let i = 0; i < employees.length; i++) {
+        cards.push(generateCard(employees[i]));
+    }
 
+    return cards;
 }
 
 function generateHTML(cards) {
@@ -45,17 +67,27 @@ function generateHTML(cards) {
         <head>
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+            <link rel="stylesheet" href="./style.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Team Profile Generator</title>
         </head>
         <body>
-            <header>
-                <h1>My Team</h1>
+            <header class="blue-grey darken-1">
+                <h1 class="white-text center-align">My Team</h1>
             </header>
+            <div class="row">
 
-            ${cards.join(" ")}
-        
+            ${cards.join("")}
+
+            </div>
         </body>
     </html>
 `;
+}
+
+module.exports = {
+    createCardsArray,
+    generateHTML
 }
