@@ -1,7 +1,6 @@
 const input = require('./src/user-input');
 const genHTML = require('./src/html-gen');
 const fs = require('fs');
-const createFile = require('./src/create-file');
 
 //runs the app
 function init() {
