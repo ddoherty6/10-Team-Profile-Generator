@@ -10,7 +10,7 @@ function generateCard(employee) {
                     </div>
                     <div class="card-action">
                         <p class="amber-text text-darken-1">Office Number: ${employee.officeNumber}</p>
-                        <a href="mailto: ${employee.getEmail()}">Email</a>
+                        <a href="mailto: ${employee.getEmail()}">Email: ${employee.getEmail()}</a>
                     </div>
                 </div>
             </div>
@@ -25,8 +25,8 @@ function generateCard(employee) {
                         <p>ID: ${employee.getId()}</p>
                     </div>
                     <div class="card-action">
-                        <p><a href="https://github.com/${employee.getGithub()}">GitHub</a></p>
-                        <a href="mailto: ${employee.getEmail()}">Email</a>
+                        <p><a href="https://github.com/${employee.getGithub()}">GitHub: ${employee.getGithub()}</a></p>
+                        <a href="mailto: ${employee.getEmail()}">Email: ${employee.getEmail()}</a>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@ function generateCard(employee) {
                     </div>
                     <div class="card-action">
                         <p class="amber-text text-darken-1">School: ${employee.getSchool()}</p>
-                        <a href="mailto: ${employee.getEmail()}">Email</a>
+                        <a href="mailto: ${employee.getEmail()}">Email: ${employee.getEmail()}</a>
                     </div>
                 </div>
             </div>
